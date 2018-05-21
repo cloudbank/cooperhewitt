@@ -42,7 +42,6 @@ import kotlinx.android.synthetic.main.activity_art.*
 import java.util.*
 import javax.inject.Inject
 
-
 /**
  *
  */
@@ -57,10 +56,8 @@ class ArtActivity : DaggerAppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_art)
-        //@todo initDataBinding()
         // toolbar.setTitle(R.string.app_name)
         //setSupportActionBar(toolbar);
-
         // initAdapter()
         createViews()
         initSwipeToRefresh()
@@ -70,9 +67,9 @@ class ArtActivity : DaggerAppCompatActivity() {
     private fun createViews() {
         val glide = GlideApp.with(this)
         val adapter = ArtObjectAdapter(glide) {
-
             artViewModel.retry()
         }
+        //@todo rv opts
         rvArt.adapter = adapter
         rvArt?.setHasFixedSize(true)
         rvArt?.setDrawingCacheEnabled(true)
@@ -89,9 +86,6 @@ class ArtActivity : DaggerAppCompatActivity() {
         val preloader = RecyclerViewPreloader(
                 GlideApp.with(this), modelProvider, sizeProvider, 5)
         rvArt?.addOnScrollListener(preloader);
-
-
-
         artViewModel.artObjects.observe(this, Observer<PagedList<ArtObject>> {
             adapter.submitList(it)
         })
