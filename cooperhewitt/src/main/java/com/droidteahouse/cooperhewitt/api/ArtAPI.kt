@@ -25,8 +25,7 @@ import retrofit2.http.Query
  * API communication setup
  */
 
-//@todo set the accesstoken behind the scene and securely
-//@todo OR use per_page and index to retrieve next batch
+
 interface ArtAPI {
     @GET("https://api.collection.cooperhewitt.org/rest/?method=cooperhewitt.search.collection&access_token=a5c90a1f1e5fb3f4b315f3f8aa2d7cfc&query=japan%2Bjapanese%2Bkyoto%2Bnagoya&sort=relevance&sort_order=desc&has_images=1&per_page=100")
     fun japaneseDesign(

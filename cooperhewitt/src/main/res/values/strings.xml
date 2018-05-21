@@ -15,10 +15,10 @@
   -->
 
 <resources>
-    <string name="app_name">Japanese Design @ Cooper Hewitt</string>
-    <string name="post_subtitle">Submitted by %s</string>
-    <string name="retry">Retry</string>
-    <string name="search_hint">search_hint</string>
-    <string name="default_subreddit">search hint</string>
+  <string name="app_name">Japanese Design @ Cooper Hewitt</string>
+  <string name="post_subtitle">Submitted by %s</string>
+  <string name="retry">Retry</string>
+  <string name="search_hint">search_hint</string>
+  <string name="default_subreddit">search hint</string>
 
 </resources>

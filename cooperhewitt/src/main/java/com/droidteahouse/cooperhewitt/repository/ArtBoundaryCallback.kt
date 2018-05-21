@@ -107,6 +107,7 @@ class ArtBoundaryCallback @Inject constructor(
         }
     }
 
+    //@todo
     private fun filter(response: Response<ArtObjects>): Response<ArtObjects> {
         var objs = response.body()
         response.body()?.objects?.filter {

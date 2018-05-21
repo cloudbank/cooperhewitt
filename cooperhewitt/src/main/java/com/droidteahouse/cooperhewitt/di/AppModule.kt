@@ -58,7 +58,6 @@ class AppModule {
         return Retrofit.Builder()
                 .baseUrl("https://api.collection.cooperhewitt.org/rest/")
                 .client(okHttpClient)
-                //@todo add back
                 // .addConverterFactory(GsonConverterFactory.create(GsonBuilder().excludeFieldsWithoutExposeAnnotation().create()))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()

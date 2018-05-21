@@ -44,12 +44,9 @@ import javax.inject.Inject
 
 
 /**
- * A list activity that shows nas.
- * <p>
- * The intent arguments can be modified to make it use a different repository (see MainActivity).
+ *
  */
 class ArtActivity : DaggerAppCompatActivity() {
-    val imagepixels = 105
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -61,7 +58,7 @@ class ArtActivity : DaggerAppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_art)
         //@todo initDataBinding()
-       // toolbar.setTitle(R.string.app_name)
+        // toolbar.setTitle(R.string.app_name)
         //setSupportActionBar(toolbar);
 
         // initAdapter()
@@ -164,7 +161,6 @@ class ArtActivity : DaggerAppCompatActivity() {
         @Nullable
         public override fun getPreloadRequestBuilder(art: ArtObject): GlideRequest<Drawable> {
             return GlideApp.with(context).load(art?.imageUrl).centerCrop()
-            // .placeholder(R.drawable.ic_insert_photo_black_48dp)
         }
     }
 

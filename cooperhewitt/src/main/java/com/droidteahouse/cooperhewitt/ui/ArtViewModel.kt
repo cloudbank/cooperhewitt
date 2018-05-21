@@ -21,17 +21,12 @@ import com.droidteahouse.cooperhewitt.repository.ArtObjectRepository
 import javax.inject.Inject
 
 /**
- * A RecyclerView ViewHolder that displays a
+ * VM
  */
 
 class ArtViewModel @Inject constructor(
         var repository: ArtObjectRepository) : ViewModel() {
-//either no constructor with field injection for repo
-    //or need to impl factory
 
-    //@todo for search
-
-    // private val schmoo = MutableLiveData<String>()
     val repoResult = repository.getArtObjects(30)
 
     val artObjects = repoResult.pagedList!!

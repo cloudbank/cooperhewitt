@@ -16,11 +16,11 @@
   -->
 
 <resources>
-    <color name="colorPrimary">#c13eff</color>
-    <color name="colorPrimary50">#E0A3F3</color>
-    <color name="colorPrimaryDark">#010103</color>
-    <color name="colorPrimaryDark80">#002266</color>
-    <color name="colorAccent">#ffb968</color>
-    <color name="white">#ffffff</color>
-    <color name="lightningbug">#ffcb09</color>
+  <color name="colorPrimary">#c13eff</color>
+  <color name="colorPrimary50">#E0A3F3</color>
+  <color name="colorPrimaryDark">#010103</color>
+  <color name="colorPrimaryDark80">#002266</color>
+  <color name="colorAccent">#ffb968</color>
+  <color name="white">#ffffff</color>
+  <color name="lightningbug">#ffcb09</color>
 </resources>

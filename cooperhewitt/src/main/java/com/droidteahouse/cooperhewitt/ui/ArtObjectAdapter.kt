@@ -26,7 +26,6 @@ import com.droidteahouse.cooperhewitt.repository.NetworkState
 import com.droidteahouse.cooperhewitt.vo.ArtObject
 
 /**
- * A simple adapter implementation that shows  artObjects.
  */
 class ArtObjectAdapter(
         private val glide: GlideRequests,
@@ -44,7 +43,7 @@ class ArtObjectAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
-            R.layout.art_object_item -> ArtObjectViewHolder.create(parent,glide)
+            R.layout.art_object_item -> ArtObjectViewHolder.create(parent, glide)
             R.layout.network_state_item -> NetworkStateItemViewHolder.create(parent, retryCallback)
             else -> throw IllegalArgumentException("unknown view type $viewType")
         }
@@ -81,9 +80,6 @@ class ArtObjectAdapter(
     }
 
 
-
-
-
     companion object {
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ArtObject>() {
             override fun areContentsTheSame(oldItem: ArtObject, newItem: ArtObject): Boolean =
@@ -96,8 +92,6 @@ class ArtObjectAdapter(
         }
 
     }
-
-
 
 
 }

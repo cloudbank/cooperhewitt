@@ -4,12 +4,12 @@ import com.google.gson.annotations.SerializedName
 
 
 data class N(@SerializedName("is_primary")
-                 val isPrimary: String = "",
+             val isPrimary: String = "",
              @SerializedName("width")
-                 val width: Int = 0,
+             val width: Int = 0,
              @SerializedName("image_id")
-                 val imageId: String = "",
+             val imageId: String = "",
              @SerializedName("url")
-                 val url: String = "",
+             val url: String = "",
              @SerializedName("height")
-                 val height: Int = 0)
+             val height: Int = 0)

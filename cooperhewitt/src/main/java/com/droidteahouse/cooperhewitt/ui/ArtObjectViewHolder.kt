@@ -28,7 +28,6 @@ import com.droidteahouse.cooperhewitt.vo.ArtObject
 
 
 /**
- * A RecyclerView ViewHolder that displays an artsy object
  */
 class ArtObjectViewHolder(view: View, private val glide: GlideRequests)
     : RecyclerView.ViewHolder(view) {
