@@ -56,14 +56,13 @@ class ArtActivity : DaggerAppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_art)
-        // toolbar.setTitle(R.string.app_name)
-        //setSupportActionBar(toolbar);
         // initAdapter()
         createViews()
         initSwipeToRefresh()
         //initSearch()
     }
 
+    //@todo refactor and opts
     private fun createViews() {
         val glide = GlideApp.with(this)
         val adapter = ArtObjectAdapter(glide) {
@@ -71,6 +70,21 @@ class ArtActivity : DaggerAppCompatActivity() {
         }
         //@todo rv opts
         rvArt.adapter = adapter
+        configRV()
+        //is this feasible before initAdapter?
+        val modelProvider = MyPreloadModelProvider(this, artViewModel.artObjects.value.orEmpty())
+        val preloader = RecyclerViewPreloader(
+               glide, modelProvider, ViewPreloadSizeProvider(), 5)
+        rvArt?.addOnScrollListener(preloader);
+        artViewModel.artObjects.observe(this, Observer<PagedList<ArtObject>> {
+            adapter.submitList(it)
+        })
+        artViewModel.networkState.observe(this, Observer {
+            adapter.setNetworkState(it)
+        })
+    }
+
+    private fun configRV() {
         rvArt?.setHasFixedSize(true)
         rvArt?.setDrawingCacheEnabled(true)
         rvArt?.setItemViewCacheSize(0)
@@ -80,18 +94,6 @@ class ArtActivity : DaggerAppCompatActivity() {
         val itemDecor = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
         itemDecor.setDrawable(ContextCompat.getDrawable(this, R.drawable.brush)!!)
         val addItemDecoration = rvArt?.addItemDecoration(itemDecor)
-        val sizeProvider = ViewPreloadSizeProvider<ArtObject>()
-        //is this feasible before initAdapter?
-        val modelProvider = MyPreloadModelProvider(this, artViewModel.artObjects.value.orEmpty())
-        val preloader = RecyclerViewPreloader(
-                GlideApp.with(this), modelProvider, sizeProvider, 5)
-        rvArt?.addOnScrollListener(preloader);
-        artViewModel.artObjects.observe(this, Observer<PagedList<ArtObject>> {
-            adapter.submitList(it)
-        })
-        artViewModel.networkState.observe(this, Observer {
-            adapter.setNetworkState(it)
-        })
     }
 
     private fun initSwipeToRefresh() {
