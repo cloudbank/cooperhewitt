@@ -1,0 +1,55 @@
+/*
+ * Copyright (C) 2017 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.droidteahouse.cooperhewitt.ui
+
+import android.arch.lifecycle.ViewModel
+import com.droidteahouse.cooperhewitt.repository.ArtObjectRepository
+import javax.inject.Inject
+
+/**
+ * A RecyclerView ViewHolder that displays a
+ */
+
+class ArtViewModel @Inject constructor(
+        var repository: ArtObjectRepository) : ViewModel() {
+//either no constructor with field injection for repo
+    //or need to impl factory
+
+    //@todo for search
+
+    // private val schmoo = MutableLiveData<String>()
+    val repoResult = repository.getArtObjects(30)
+
+    val artObjects = repoResult.pagedList!!
+    val networkState = repoResult.networkState!!
+    val refreshState = repoResult.refreshState!!
+
+
+    fun refresh() {
+        repoResult.refresh?.invoke()
+    }
+
+
+    fun retry() {
+        repoResult?.retry?.invoke()
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+    }
+
+}
