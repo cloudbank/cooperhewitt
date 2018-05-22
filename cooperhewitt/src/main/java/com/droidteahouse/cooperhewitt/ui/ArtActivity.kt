@@ -87,7 +87,7 @@ class ArtActivity : DaggerAppCompatActivity() {
     private fun configRV() {
         rvArt?.setHasFixedSize(true)
         rvArt?.setDrawingCacheEnabled(true)
-        rvArt?.setItemViewCacheSize(0)
+        rvArt?.setItemViewCacheSize(9)
         rvArt?.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH)
         mLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         rvArt?.setLayoutManager(mLayoutManager)
@@ -104,7 +104,7 @@ class ArtActivity : DaggerAppCompatActivity() {
             artViewModel.refresh()
         }
     }
-
+//setOnFlingListener
     //@todo
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
@@ -146,7 +146,7 @@ class ArtActivity : DaggerAppCompatActivity() {
         @Override
         @NonNull
         public override fun getPreloadItems(position: Int): List<ArtObject> {
-            if (objects.isEmpty() || position > objects.size) {
+            if (objects.isEmpty() || position >= objects.size) {
                 return emptyList()
             } else {
                 return Collections.singletonList(objects.get(position))

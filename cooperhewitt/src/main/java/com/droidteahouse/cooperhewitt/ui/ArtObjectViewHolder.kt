@@ -55,7 +55,7 @@ class ArtObjectViewHolder(view: View, private val glide: GlideRequests)
         medium.text = art?.medium ?: "[no medium listed]"
         // date.text = art?.date ?: "[no date listed]"
         id.text = "No." + art?.id ?: "00"
-        if (art?.imageUrl?.startsWith("http") == true) {
+        //if (art?.imageUrl?.startsWith("http") == true) {
             thumbnail.visibility = View.VISIBLE
             //Picasso.with(this.itemView.context).load(art?.imageUrl)
             //.placeholder(R.drawable.ic_insert_photo_black_48dp)
@@ -64,11 +64,11 @@ class ArtObjectViewHolder(view: View, private val glide: GlideRequests)
             glide.load(art?.imageUrl).centerCrop()
                     .placeholder(R.drawable.ic_insert_photo_black_48dp)
                     .into(thumbnail)
-        } else {
+       /* } else {
             thumbnail.visibility = View.GONE
             glide.clear(thumbnail)
 
-        }
+        }*/
 
     }
 
