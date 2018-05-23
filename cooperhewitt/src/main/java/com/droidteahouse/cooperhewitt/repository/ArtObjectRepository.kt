@@ -100,7 +100,7 @@ class ArtObjectRepository @Inject constructor(
      * Since the PagedList already uses a database bound data source, it will automatically be
      * updated after the database transaction is finished.
      */
-    //@todo not sure I want this, or how I will refresh by page right now
+    //@todo not sure this is needed
     //@todo I will need to find the use case
     @MainThread
     private fun refresh(page: Int): LiveData<NetworkState> {
@@ -134,7 +134,7 @@ class ArtObjectRepository @Inject constructor(
     }
 
     /**
-     * Returns a Listing for the given subreddit.
+     * Returns japanese design objects.
      */
     @MainThread
     fun getArtObjects(): Listing<ArtObject> {
