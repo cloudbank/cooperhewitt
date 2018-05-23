@@ -48,7 +48,7 @@ class ArtObjectRepository @Inject constructor(
 
     init {
         val builder: LivePagedListBuilder<Int, ArtObject> by lazy {
-            LivePagedListBuilder(db.artDao().artObjects(), 30)
+            LivePagedListBuilder(db.artDao().artObjects(), 15)
                     .setBoundaryCallback(boundaryCallback)
         }
         val refreshTrigger = MutableLiveData<Unit>()
@@ -137,7 +137,7 @@ class ArtObjectRepository @Inject constructor(
      * Returns a Listing for the given subreddit.
      */
     @MainThread
-    fun getArtObjects(pageSize: Int): Listing<ArtObject> {
+    fun getArtObjects(): Listing<ArtObject> {
 
         //@todo inject or cache
         return listing

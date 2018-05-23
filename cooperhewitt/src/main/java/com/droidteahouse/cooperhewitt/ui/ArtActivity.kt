@@ -74,7 +74,7 @@ class ArtActivity : DaggerAppCompatActivity() {
         //is this feasible before initAdapter?
         val modelProvider = MyPreloadModelProvider(this, artViewModel.artObjects.value.orEmpty())
         val preloader = RecyclerViewPreloader(
-               glide, modelProvider, ViewPreloadSizeProvider(), 5)
+               glide, modelProvider, ViewPreloadSizeProvider(), 10)
         rvArt?.addOnScrollListener(preloader);
         artViewModel.artObjects.observe(this, Observer<PagedList<ArtObject>> {
             adapter.submitList(it)
