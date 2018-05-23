@@ -28,10 +28,10 @@ class ArtViewModel @Inject constructor(
         var repository: ArtObjectRepository) : ViewModel() {
 
     val repoResult = repository.getArtObjects()
-
-    val artObjects = repoResult.pagedList!!
-    val networkState = repoResult.networkState!!
-    val refreshState = repoResult.refreshState!!
+    //@todo livedata cache
+    val artObjects =  repoResult.pagedList
+    val networkState = repoResult.networkState
+    val refreshState = repoResult.refreshState
 
 
     fun refresh() {

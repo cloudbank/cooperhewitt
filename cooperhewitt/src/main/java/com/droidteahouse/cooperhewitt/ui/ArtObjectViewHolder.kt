@@ -51,10 +51,11 @@ class ArtObjectViewHolder(view: View, private val glide: GlideRequests)
 
     fun bind(art: ArtObject?) {
         this.artObject = art
-        title.text = art?.title ?: "loading"
-        medium.text = art?.medium ?: "[no medium listed]"
+        //title.text = art?.title.takeIf<String?> { !(it?.contains("(Japan)"))!! }
+        title.text = art?.title?.trim() ?: "---"
+        medium.text = art?.medium?.trim() ?: "---"
         // date.text = art?.date ?: "[no date listed]"
-        id.text = "No." + art?.id ?: "00"
+        id.text = "No." + art?.id ?: "0000000"
         //if (art?.imageUrl?.startsWith("http") == true) {
             thumbnail.visibility = View.VISIBLE
             //Picasso.with(this.itemView.context).load(art?.imageUrl)
