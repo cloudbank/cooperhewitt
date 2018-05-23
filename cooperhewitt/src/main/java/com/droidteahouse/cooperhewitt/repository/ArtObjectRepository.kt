@@ -82,7 +82,6 @@ class ArtObjectRepository @Inject constructor(
             db.runInTransaction {
                 val nextPage = db.artDao().getNextPageInArt()
                 val items = results.mapIndexed { page, item ->
-                    //@todo do we have to do page here
                     item.page = nextPage
                     item.imageUrl = item?.images?.get(0)?.n?.url
                     item
@@ -100,8 +99,7 @@ class ArtObjectRepository @Inject constructor(
      * Since the PagedList already uses a database bound data source, it will automatically be
      * updated after the database transaction is finished.
      */
-    //@todo not sure this is needed
-    //@todo I will need to find the use case
+    //@todo not needed until search impl
     @MainThread
     private fun refresh(page: Int): LiveData<NetworkState> {
 
