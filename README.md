@@ -21,7 +21,7 @@ CH API for Architecture optimizations in image downloads and paging
 
 >>>>VIEW   
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://i.imgur.com/iqkWf8E0.png" height="300"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="https://i.imgur.com/QvffM1jf.png" height="300" />     
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://i.imgur.com/Pb4MURQ.png" height="300"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src=https://i.imgur.com/2m3uBaq.png" height="300" />     
 
 
 ### Designed with the Material theme and latest, greatest android libs for best viewing pleasure!
