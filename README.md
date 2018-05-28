@@ -6,8 +6,8 @@ CH API for Architecture optimizations in image downloads and paging
 ## Japanese Design @ Cooper Hewitt
 >>>>
 
-<img src="http://i.imgur.com/YVgBfcPFq.png" height="300"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-<img src="https://i.imgur.com/fdhMf5h9o.png" height="300"/>
+<img src="https://i.imgur.com/rh7MkgQ.png" height="300"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+
 >>>>SDK 19+, Oreo compatible, for phone and tablet
 
 * *Dagger2 for abstraction
