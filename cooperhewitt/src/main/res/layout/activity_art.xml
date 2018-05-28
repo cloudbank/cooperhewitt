@@ -54,7 +54,7 @@
         android:imeOptions="actionSearch"
         android:inputType="textNoSuggestions"
         tools:text="androiddev"
-        android:text="@string/default_subreddit"/>
+        android:text="@string/default_string"/>
   </android.support.design.widget.TextInputLayout>
   <android.support.v4.widget.SwipeRefreshLayout android:id="@+id/swipe_refresh"
                                                 android:layout_width="match_parent"
