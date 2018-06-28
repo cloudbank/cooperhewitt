@@ -51,7 +51,6 @@ class ArtActivity : DaggerAppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_art)
-        // initAdapter()
         createViews()
         initSwipeToRefresh()
         //initSearch()
@@ -66,9 +65,6 @@ class ArtActivity : DaggerAppCompatActivity() {
         //@todo rv opts
         rvArt.adapter = adapter
         configRV()
-        //is this feasible before initAdap`~~~~ter?
-
-      //  modelProvider.
         artViewModel.artObjects.observe(this, Observer<PagedList<ArtObject>> {
             val modelProvider = MyPreloadModelProvider(this, it.orEmpty())
 
@@ -102,44 +98,16 @@ class ArtActivity : DaggerAppCompatActivity() {
             artViewModel.refresh()
         }
     }
+
+
 //setOnFlingListener
+
+
     //@todo
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        // outState.putString(KEY_SUBREDDIT, artViewModel.currentSubreddit())
     }
 
-    /*  private fun initSearch() {
-          input.setOnEditorActionListener({ _, actionId, _ ->
-              if (actionId == EditorInfo.IME_ACTION_GO) {
-                  updatedArtSearchFromInput()
-                  true
-              } else {
-                  false
-              }
-          })
-          input.setOnKeyListener({ _, keyCode, event ->
-              if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
-                  updatedArtSearchFromInput()
-                  true
-              } else {
-                  false
-              }
-          })
-      }
-
-      private fun updatedArtSearchFromInput() {
-          input.text.trim().toString().let {
-              if (it.isNotEmpty()) {
-                  if (artViewModel.poop(it)) {
-                      list.scrollToPosition(0)
-                      (list.adapter as? ArtObjectAdapter)?.submitList(null)
-                  }
-              }
-          }
-      }
-
-}*/
     private class MyPreloadModelProvider(val context: Context, val objects: List<ArtObject>) : ListPreloaderHasher.PreloadModelProvider<ArtObject> {
         @Override
         @NonNull

@@ -29,7 +29,7 @@ class ArtViewModel @Inject constructor(
 
     val repoResult = repository.getArtObjects()
     //@todo livedata cache
-    val artObjects =  repoResult.pagedList
+    val artObjects = repoResult.pagedList
     val networkState = repoResult.networkState
     val refreshState = repoResult.refreshState
 

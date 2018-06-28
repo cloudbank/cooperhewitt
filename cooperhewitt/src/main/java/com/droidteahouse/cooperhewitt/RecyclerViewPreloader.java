@@ -6,23 +6,24 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
-import com.droidteahouse.cooperhewitt.ListPreloaderHasher.PreloadModelProvider;
-import com.droidteahouse.cooperhewitt.ListPreloaderHasher.PreloadSizeProvider;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.integration.recyclerview.RecyclerToListViewScrollListener;
+import com.droidteahouse.cooperhewitt.ListPreloaderHasher.PreloadModelProvider;
+import com.droidteahouse.cooperhewitt.ListPreloaderHasher.PreloadSizeProvider;
 
 /**
  * Loads a few resources ahead in the direction of scrolling in any {@link RecyclerView} so that
  * images are in the memory cache just before the corresponding view in created in the list. Gives
  * the appearance of an infinitely large image cache, depending on scrolling speed, cpu speed, and
  * cache size.
- *
+ * <p>
  * <p> Must be added as a listener to the {@link RecyclerView} using
  * {@link RecyclerView#addOnScrollListener(RecyclerView.OnScrollListener)}, or have its
  * corresponding methods called from another
  * {@link android.support.v7.widget.RecyclerView.OnScrollListener} to function. </p>
- *
+ * <p>
  * <p> This class only works with {@link android.support.v7.widget.LinearLayoutManager} and
  * subclasses of {@link android.support.v7.widget.LinearLayoutManager}. </p>
  *
@@ -64,6 +65,7 @@ public final class RecyclerViewPreloader<T> extends RecyclerView.OnScrollListene
 
     /**
      * Helper constructor that accepts an {@link android.app.Fragment}.
+     *
      * @deprecated Use constructor <code>RecyclerViewPreloader(Fragment, PreloadModelProvider<T>,
      * PreloadSizeProvider<T>)</code> instead.
      */

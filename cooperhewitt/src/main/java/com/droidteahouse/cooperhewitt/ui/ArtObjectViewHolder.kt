@@ -16,7 +16,6 @@
 
 package com.droidteahouse.cooperhewitt.ui
 
-import android.graphics.Bitmap
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -58,23 +57,23 @@ class ArtObjectViewHolder(view: View, private val glide: GlideRequests)
         // date.text = art?.date ?: "[no date listed]"
         id.text = "No." + art?.id ?: "0000000"
         //if (art?.imageUrl?.startsWith("http") == true) {
-            thumbnail.visibility = View.VISIBLE
-            //Picasso.with(this.itemView.context).load(art?.imageUrl)
-            //.placeholder(R.drawable.ic_insert_photo_black_48dp)
-            //   .error(R.drawable.ic_insert_photo_black_48dp)
-            //   .fit().centerInside().into(thumbnail)
+        thumbnail.visibility = View.VISIBLE
+        //Picasso.with(this.itemView.context).load(art?.imageUrl)
+        //.placeholder(R.drawable.ic_insert_photo_black_48dp)
+        //   .error(R.drawable.ic_insert_photo_black_48dp)
+        //   .fit().centerInside().into(thumbnail)
         //
         //.diskCacheStrategy(DiskCacheStrategy.ALL)
 
 
         glide.load(art?.imageUrl).centerCrop()
-                    .placeholder(R.drawable.ic_insert_photo_black_48dp)
-                    .into(thumbnail)
-       /* } else {
-            thumbnail.visibility = View.GONE
-            glide.clear(thumbnail)
+                .placeholder(R.drawable.ic_insert_photo_black_48dp)
+                .into(thumbnail)
+        /* } else {
+             thumbnail.visibility = View.GONE
+             glide.clear(thumbnail)
 
-        }*/
+         }*/
 
     }
 

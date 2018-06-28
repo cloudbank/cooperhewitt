@@ -1,15 +1,15 @@
-
 package com.droidteahouse.cooperhewitt;
-
 
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
+
 import com.bumptech.glide.request.target.SizeReadyCallback;
 import com.bumptech.glide.request.target.ViewTarget;
 import com.bumptech.glide.request.transition.Transition;
+
 import java.util.Arrays;
 
 /**
@@ -66,7 +66,7 @@ public class ViewPreloadSizeProvider<T> implements ListPreloaderHasher.PreloadSi
 
     /**
      * Sets the {@link android.view.View} the size will be extracted.
-     *
+     * <p>
      * <p> Note - only the first call to this method will be obeyed, subsequent requests will be
      * ignored. </p>
      *

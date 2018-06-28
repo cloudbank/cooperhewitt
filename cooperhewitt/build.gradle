@@ -23,34 +23,34 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-  compileSdkVersion build_versions.target_sdk
-  buildToolsVersion build_versions.build_tools
-  defaultConfig {
-    applicationId "com.droidteahouse.artsy"
-    minSdkVersion build_versions.min_sdk
-    targetSdkVersion build_versions.target_sdk
-    versionCode 1
-    versionName "1.0"
-    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-  }
-  buildTypes {
-    debug {
-      minifyEnabled true
-      useProguard false
-      proguardFiles getDefaultProguardFile('proguard-android.txt'),
-          'proguard-rules.pro'
+    compileSdkVersion build_versions.target_sdk
+    buildToolsVersion build_versions.build_tools
+    defaultConfig {
+        applicationId "com.droidteahouse.artsy"
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-    release {
-      minifyEnabled true
-      useProguard true
-      proguardFiles getDefaultProguardFile('proguard-android.txt'),
-          'proguard-rules.pro'
+    buildTypes {
+        debug {
+            minifyEnabled true
+            useProguard false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'),
+                    'proguard-rules.pro'
+        }
+        release {
+            minifyEnabled true
+            useProguard true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'),
+                    'proguard-rules.pro'
+        }
     }
-  }
-  sourceSets {
-    androidTest.java.srcDirs += "src/test-common/java"
-    test.java.srcDirs += "src/test-common/java"
-  }
+    sourceSets {
+        androidTest.java.srcDirs += "src/test-common/java"
+        test.java.srcDirs += "src/test-common/java"
+    }
 
 }
 
@@ -58,54 +58,54 @@ android {
 dependencies {
 
 
-  implementation deps.constraint_layout
-  implementation deps.support.app_compat
-  implementation deps.support.recyclerview
-  implementation deps.support.cardview
-  implementation deps.support.design
-  implementation deps.room.runtime
-  kapt deps.room.compiler
-  implementation deps.lifecycle.runtime
-  implementation deps.lifecycle.extensions
-  kapt deps.lifecycle.compiler
-  implementation deps.paging
-  implementation deps.kotlin.stdlib
-  implementation deps.retrofit.runtime
-  implementation deps.retrofit.gson
- //@todo
-  compile 'com.squareup.okhttp3:okhttp:3.2.0'
-  implementation deps.okhttp_logging_interceptor
-  kapt deps.glide.compiler
-  implementation deps.glide.runtime
-  implementation deps.glide.rv
- // implementation 'com.squareup.picasso:picasso:2.4.0'
- // compile 'com.squareup.okhttp3:okhttp:3.2.0'
- // compile 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.1.0'
+    implementation deps.constraint_layout
+    implementation deps.support.app_compat
+    implementation deps.support.recyclerview
+    implementation deps.support.cardview
+    implementation deps.support.design
+    implementation deps.room.runtime
+    kapt deps.room.compiler
+    implementation deps.lifecycle.runtime
+    implementation deps.lifecycle.extensions
+    kapt deps.lifecycle.compiler
+    implementation deps.paging
+    implementation deps.kotlin.stdlib
+    implementation deps.retrofit.runtime
+    implementation deps.retrofit.gson
+    //@todo
+    compile 'com.squareup.okhttp3:okhttp:3.2.0'
+    implementation deps.okhttp_logging_interceptor
+    kapt deps.glide.compiler
+    implementation deps.glide.runtime
+    implementation deps.glide.rv
+    // implementation 'com.squareup.picasso:picasso:2.4.0'
+    // compile 'com.squareup.okhttp3:okhttp:3.2.0'
+    // compile 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.1.0'
 
 
-  implementation deps.dagger.runtime
-  implementation deps.dagger.android
-  implementation deps.dagger.android_support
-  kapt deps.dagger.android_support_compiler
-  kapt deps.dagger.compiler
+    implementation deps.dagger.runtime
+    implementation deps.dagger.android
+    implementation deps.dagger.android_support
+    kapt deps.dagger.android_support_compiler
+    kapt deps.dagger.compiler
 
-  // Android Testing Support Library's runner and rules
-  androidTestImplementation deps.atsl.runner
-  androidTestImplementation deps.atsl.rules
-  androidTestImplementation deps.arch_core.testing
-  testImplementation deps.room.testing
+    // Android Testing Support Library's runner and rules
+    androidTestImplementation deps.atsl.runner
+    androidTestImplementation deps.atsl.rules
+    androidTestImplementation deps.arch_core.testing
+    testImplementation deps.room.testing
 
-  androidTestImplementation deps.junit
-  androidTestImplementation deps.retrofit.mock
-  androidTestImplementation deps.arch_core.testing
-  androidTestImplementation deps.dexmaker
-  androidTestImplementation deps.mockito.core, {exclude group: 'net.bytebuddy'}
+    androidTestImplementation deps.junit
+    androidTestImplementation deps.retrofit.mock
+    androidTestImplementation deps.arch_core.testing
+    androidTestImplementation deps.dexmaker
+    androidTestImplementation deps.mockito.core, { exclude group: 'net.bytebuddy' }
 
 
 
-  testImplementation deps.junit
-  testImplementation deps.retrofit.mock
-  testImplementation deps.arch_core.testing
-  testImplementation deps.mockito.core
+    testImplementation deps.junit
+    testImplementation deps.retrofit.mock
+    testImplementation deps.arch_core.testing
+    testImplementation deps.mockito.core
 }
 

@@ -1,6 +1,8 @@
 package com.droidteahouse.cooperhewitt.vo
 
-import android.arch.persistence.room.*
+import android.arch.persistence.room.Entity
+import android.arch.persistence.room.PrimaryKey
+import android.arch.persistence.room.TypeConverters
 import android.support.annotation.NonNull
 import com.droidteahouse.cooperhewitt.db.Converters
 import com.google.gson.annotations.SerializedName
@@ -32,6 +34,6 @@ data class ArtObject(@SerializedName("date")
 
     var imageUrl = images?.get(0)?.n?.url
 
-   // var hash: String = ""
+    // var hash: String = ""
 
 }

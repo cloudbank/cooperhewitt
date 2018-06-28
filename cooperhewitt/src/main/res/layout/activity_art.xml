@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (C) 2017 The Android Open Source Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,55 +14,57 @@
   ~ limitations under the License.
   -->
 
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:fitsSystemWindows="true"
     android:background="@color/colorPrimary"
-    android:id="@+id/root"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
     tools:context="com.droidteahouse.cooperhewitt.ui.ArtActivity">
-  <android.support.v7.widget.Toolbar
-      android:id="@+id/toolbar"
-      android:layout_width="match_parent"
-      android:layout_height="?attr/actionBarSize"
-      android:background="@color/colorPrimary50"
-      app:theme="@style/ThemeOverlay.AppCompat.Light"
-      app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-  >
 
-  </android.support.v7.widget.Toolbar>
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary50"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ThemeOverlay.AppCompat.Light">
 
-  <android.support.design.widget.TextInputLayout
-      android:id="@+id/input_layout"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginEnd="8dp"
-      android:layout_marginStart="8dp"
-      android:focusedByDefault="false"
-      android:visibility="gone"
-      android:layout_marginTop="8dp">
-    <EditText
-        android:id="@+id/input"
+    </android.support.v7.widget.Toolbar>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/search_hint"
-        android:imeOptions="actionSearch"
-        android:inputType="textNoSuggestions"
-        tools:text="androiddev"
-        android:text="@string/default_string"/>
-  </android.support.design.widget.TextInputLayout>
-  <android.support.v4.widget.SwipeRefreshLayout android:id="@+id/swipe_refresh"
-                                                android:layout_width="match_parent"
-                                                android:layout_height="match_parent">
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvArt"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:focusedByDefault="false"
+        android:visibility="gone">
+
+        <EditText
+            android:id="@+id/input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/search_hint"
+            android:imeOptions="actionSearch"
+            android:inputType="textNoSuggestions"
+            android:text="@string/default_string"
+            tools:text="androiddev" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="vertical"
-    />
-  </android.support.v4.widget.SwipeRefreshLayout>
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvArt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical" />
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>
