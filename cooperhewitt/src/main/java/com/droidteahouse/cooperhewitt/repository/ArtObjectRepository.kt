@@ -81,7 +81,9 @@ class ArtObjectRepository @Inject constructor(
         body!!.objects!!.let { results ->
             db.runInTransaction {
                 val nextPage = db.artDao().getNextPageInArt()
-                val items = results.mapIndexed { page, item ->
+                val items = results.map{  item ->
+                    //load bitmap here expensive, make map and go back to delete?
+                    //
                     item.page = nextPage
                     item.imageUrl = item?.images?.get(0)?.n?.url
                     item

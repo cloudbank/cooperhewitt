@@ -14,17 +14,7 @@ public class ArtApplication : DaggerApplication() {
 
     override fun onCreate() {
         super.onCreate()
-        /*val builder = Picasso.Builder(this)
-        builder.downloader(OkHttp3Downloader(this, Long.MAX_VALUE))
-        val picasso = builder.build()
-        picasso.setLoggingEnabled(false)
+        //insert into db in background with hash
 
-        try {
-            Picasso.setSingletonInstance(picasso)
-        } catch (e: IllegalStateException) {
-            // for roboelectric tests
-        }*/
-
-        //Stetho.initializeWithDefaults(this);
     }
 }

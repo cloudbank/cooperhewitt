@@ -16,6 +16,7 @@
 
 package com.droidteahouse.cooperhewitt.ui
 
+import android.graphics.Bitmap
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -62,7 +63,11 @@ class ArtObjectViewHolder(view: View, private val glide: GlideRequests)
             //.placeholder(R.drawable.ic_insert_photo_black_48dp)
             //   .error(R.drawable.ic_insert_photo_black_48dp)
             //   .fit().centerInside().into(thumbnail)
-            glide.load(art?.imageUrl).centerCrop()
+        //
+        //.diskCacheStrategy(DiskCacheStrategy.ALL)
+
+
+        glide.load(art?.imageUrl).centerCrop()
                     .placeholder(R.drawable.ic_insert_photo_black_48dp)
                     .into(thumbnail)
        /* } else {
