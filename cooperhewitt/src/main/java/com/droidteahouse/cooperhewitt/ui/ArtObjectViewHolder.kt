@@ -30,61 +30,44 @@ import com.droidteahouse.cooperhewitt.vo.ArtObject
 /**
  */
 class ArtObjectViewHolder(view: View, private val glide: GlideRequests)
-    : RecyclerView.ViewHolder(view) {
-    private val title: TextView = view.findViewById(R.id.title)
-    private val medium: TextView = view.findViewById(R.id.medium)
-    //private val date: TextView = view.findViewById(R.id.date)
-    internal val thumbnail: ImageView = view.findViewById(R.id.thumbnail)
-    private val id: TextView = view.findViewById(R.id.id)
-    private var artObject: ArtObject? = null
+  : RecyclerView.ViewHolder(view) {
+  private val title: TextView = view.findViewById(R.id.title)
+  private val medium: TextView = view.findViewById(R.id.medium)
+  //private val date: TextView = view.findViewById(R.id.date)
+  internal val thumbnail: ImageView = view.findViewById(R.id.thumbnail)
+  private val id: TextView = view.findViewById(R.id.id)
+  private var artObject: ArtObject? = null
 
-    init {
-        view.setOnClickListener {
-            /*
-            artObject?.getImageUrl()?.let { url ->
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                view.context.startActivity(intent)
-            }
-            */
-        }
+  init {
+    view.setOnClickListener {
+      /*
+      artObject?.getImageUrl()?.let { url ->
+          val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+          view.context.startActivity(intent)
+      }
+      */
     }
+  }
 
-    fun bind(art: ArtObject?) {
-        this.artObject = art
-        //title.text = art?.title.takeIf<String?> { !(it?.contains("(Japan)"))!! }
-        title.text = art?.title?.trim() ?: "---"
-        medium.text = art?.medium?.trim() ?: "---"
-        // date.text = art?.date ?: "[no date listed]"
-        id.text = "No." + art?.id ?: "0000000"
-        //if (art?.imageUrl?.startsWith("http") == true) {
-        thumbnail.visibility = View.VISIBLE
-        //Picasso.with(this.itemView.context).load(art?.imageUrl)
-        //.placeholder(R.drawable.ic_insert_photo_black_48dp)
-        //   .error(R.drawable.ic_insert_photo_black_48dp)
-        //   .fit().centerInside().into(thumbnail)
-        //
-        //.diskCacheStrategy(DiskCacheStrategy.ALL)
+  fun bind(art: ArtObject?) {
+    this.artObject = art
+    title.text = art?.title?.trim() ?: "---"
+    medium.text = art?.medium?.trim() ?: "---"
+    // date.text = art?.date ?: "[no date listed]"
+    id.text = "No." + art?.id
+    glide.load(art?.imageUrl).centerCrop()
+        .placeholder(R.drawable.ic_insert_photo_black_48dp)
+        .into(thumbnail)
+  }
 
 
-        glide.load(art?.imageUrl).centerCrop()
-                .placeholder(R.drawable.ic_insert_photo_black_48dp)
-                .into(thumbnail)
-        /* } else {
-             thumbnail.visibility = View.GONE
-             glide.clear(thumbnail)
-
-         }*/
-
+  companion object {
+    fun create(parent: ViewGroup, glide: GlideRequests): ArtObjectViewHolder {
+      val view = LayoutInflater.from(parent.context)
+          .inflate(R.layout.art_object_item, parent, false)
+      return ArtObjectViewHolder(view, glide)
     }
-
-
-    companion object {
-        fun create(parent: ViewGroup, glide: GlideRequests): ArtObjectViewHolder {
-            val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.art_object_item, parent, false)
-            return ArtObjectViewHolder(view, glide)
-        }
-    }
+  }
 
 
 }

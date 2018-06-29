@@ -25,16 +25,16 @@ import com.droidteahouse.cooperhewitt.vo.ArtObject
 
 @Dao
 interface ArtDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(artItems: List<ArtObject>)
+  @Insert(onConflict = OnConflictStrategy.REPLACE)
+  fun insert(artItems: List<ArtObject>)
 
-    @Query("SELECT * FROM artObjects ORDER BY page ASC")
-    fun artObjects(): DataSource.Factory<Int, ArtObject>
+  @Query("SELECT * FROM artObjects ORDER BY page ASC")
+  fun artObjects(): DataSource.Factory<Int, ArtObject>
 
-    //@todo w transaction
-    @Query("DELETE FROM artObjects ")
-    fun deleteArt()
+  //@todo w transaction
+  @Query("DELETE FROM artObjects ")
+  fun deleteArt()
 
-    @Query("SELECT MAX(page) + 1 FROM artObjects")
-    fun getNextPageInArt(): Int
+  @Query("SELECT MAX(page) + 1 FROM artObjects")
+  fun getNextPageInArt(): Int
 }

@@ -30,10 +30,10 @@ data class ArtObject(@SerializedName("date")
                      @SerializedName("gallery_text")
                      val galleryText: String? = "") {
 
-    var page = 0;
+  var page = 0
 
-    var imageUrl = images?.get(0)?.n?.url
+  var imageUrl = images?.get(0)?.n?.url
 
-    // var hash: String = ""
+  // var hash: String = ""
 
 }

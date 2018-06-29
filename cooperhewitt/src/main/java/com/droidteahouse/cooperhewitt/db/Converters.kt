@@ -9,23 +9,23 @@ import java.util.*
 class Converters {
 
 
-    @TypeConverter
-    fun imagesItemListToString(someObjects: List<ImagesItem>): String {
-        val gson = Gson()
-        return gson.toJson(someObjects)
-    }
+  @TypeConverter
+  fun imagesItemListToString(someObjects: List<ImagesItem>): String {
+    val gson = Gson()
+    return gson.toJson(someObjects)
+  }
 
 
-    @TypeConverter
-    fun stringToItemsList(data: String): List<ImagesItem> {
-        if (data == null) {
-            return Collections.emptyList();
-        }
-        val listType = object : TypeToken<List<ImagesItem>>() {
-        }.getType()
-        val gson = Gson();
-        return gson.fromJson(data, listType);
+  @TypeConverter
+  fun stringToItemsList(data: String): List<ImagesItem> {
+    if (data == null) {
+      return Collections.emptyList()
     }
+    val listType = object : TypeToken<List<ImagesItem>>() {
+    }.type
+    val gson = Gson()
+    return gson.fromJson(data, listType)
+  }
 
 
 }

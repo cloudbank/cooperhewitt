@@ -41,106 +41,106 @@ import javax.inject.Singleton
  */
 @Singleton
 class ArtObjectRepository @Inject constructor(
-        var boundaryCallback: ArtBoundaryCallback,
-        var db: ArtDb) {
+    var boundaryCallback: ArtBoundaryCallback,
+    var db: ArtDb) {
 
-    var listing: Listing<ArtObject>
+  var listing: Listing<ArtObject>
 
-    init {
-        val builder: LivePagedListBuilder<Int, ArtObject> by lazy {
-            LivePagedListBuilder(db.artDao().artObjects(), 15)
-                    .setBoundaryCallback(boundaryCallback)
-        }
-        val refreshTrigger = MutableLiveData<Unit>()
-        val refreshState = Transformations.switchMap(refreshTrigger, {
-            //@todo fixo
-            refresh(1)
-        })
-        listing =
-                Listing(
-                        pagedList = builder.build(),
-                        networkState = boundaryCallback.networkState,
-                        retry = {
-                            boundaryCallback.helper.retryAllFailed()
-                        },
-                        refresh = {
-                            refreshTrigger.value = null
-                        },
-                        refreshState = refreshState
-                )
-
-        boundaryCallback.handleResponse = this::insertResultIntoDb
-
-
+  init {
+    val builder: LivePagedListBuilder<Int, ArtObject> by lazy {
+      LivePagedListBuilder(db.artDao().artObjects(), 15)
+          .setBoundaryCallback(boundaryCallback)
     }
+    val refreshTrigger = MutableLiveData<Unit>()
+    val refreshState = Transformations.switchMap(refreshTrigger, {
+      //@todo fixo
+      refresh(1)
+    })
+    listing =
+        Listing(
+            pagedList = builder.build(),
+            networkState = boundaryCallback.networkState,
+            retry = {
+              boundaryCallback.helper.retryAllFailed()
+            },
+            refresh = {
+              refreshTrigger.value = null
+            },
+            refreshState = refreshState
+        )
 
-    /**
-     * Inserts the response into the database while also assigning position indices to items.
-     */
-    fun insertResultIntoDb(body: ArtObjects?) {
-        body!!.objects!!.let { results ->
-            db.runInTransaction {
-                val nextPage = db.artDao().getNextPageInArt()
-                val items = results.map { item ->
-                    //load bitmap here expensive, make map and go back to delete?
-                    //
-                    item.page = nextPage
-                    item.imageUrl = item?.images?.get(0)?.n?.url
-                    item
+    boundaryCallback.handleResponse = this::insertResultIntoDb
+
+
+  }
+
+  /**
+   * Inserts the response into the database while also assigning position indices to items.
+   */
+  fun insertResultIntoDb(body: ArtObjects?) {
+    body!!.objects!!.let { results ->
+      db.runInTransaction {
+        val nextPage = db.artDao().getNextPageInArt()
+        val items = results.map { item ->
+          //load bitmap here expensive, make map and go back to delete?
+          //
+          item.page = nextPage
+          item.imageUrl = item.images?.get(0)?.n?.url
+          item
+        }
+        db.artDao().insert(items)
+      }
+    }
+  }
+
+
+  /**
+   * When refresh is called, we simply run a fresh network request and when it arrives, clear
+   * the database table and insert all new items in a transaction.
+   * <p>
+   * Since the PagedList already uses a database bound data source, it will automatically be
+   * updated after the database transaction is finished.
+   */
+  //@todo not needed until search impl
+  @MainThread
+  private fun refresh(page: Int): LiveData<NetworkState> {
+
+    val networkState = MutableLiveData<NetworkState>()
+    networkState.value = NetworkState.LOADING
+    /*
+    artAPI.japaneseDesign(page).enqueue(
+            object : Callback<ArtObjects> {
+                override fun onFailure(call: Call<ArtObjects>, t: Throwable) {
+                    // retrofit calls this on main thread so safe to call set value
+                    networkState.value = NetworkState.error(t.message)
                 }
-                db.artDao().insert(items)
-            }
-        }
-    }
 
-
-    /**
-     * When refresh is called, we simply run a fresh network request and when it arrives, clear
-     * the database table and insert all new items in a transaction.
-     * <p>
-     * Since the PagedList already uses a database bound data source, it will automatically be
-     * updated after the database transaction is finished.
-     */
-    //@todo not needed until search impl
-    @MainThread
-    private fun refresh(page: Int): LiveData<NetworkState> {
-
-        val networkState = MutableLiveData<NetworkState>()
-        networkState.value = NetworkState.LOADING
-        /*
-        artAPI.japaneseDesign(page).enqueue(
-                object : Callback<ArtObjects> {
-                    override fun onFailure(call: Call<ArtObjects>, t: Throwable) {
-                        // retrofit calls this on main thread so safe to call set value
-                        networkState.value = NetworkState.error(t.message)
-                    }
-
-                    override fun onResponse(
-                            call: Call<ArtObjects>,
-                            response: Response<ArtObjects>) {
-                        ioExecutor.execute {
-                            db.runInTransaction {
-                                //db.artDao().deleteByPage(page)
-                                insertResultIntoDb(response.body())
-                            }
-                            // since we are in bg thread now, post the result.
-                            networkState.postValue(NetworkState.LOADED)
+                override fun onResponse(
+                        call: Call<ArtObjects>,
+                        response: Response<ArtObjects>) {
+                    ioExecutor.execute {
+                        db.runInTransaction {
+                            //db.artDao().deleteByPage(page)
+                            insertResultIntoDb(response.body())
                         }
+                        // since we are in bg thread now, post the result.
+                        networkState.postValue(NetworkState.LOADED)
                     }
                 }
-        )*/
-        networkState.postValue(NetworkState.LOADED)
-        return networkState
-    }
+            }
+    )*/
+    networkState.postValue(NetworkState.LOADED)
+    return networkState
+  }
 
-    /**
-     * Returns japanese design objects.
-     */
-    @MainThread
-    fun getArtObjects(): Listing<ArtObject> {
+  /**
+   * Returns japanese design objects.
+   */
+  @MainThread
+  fun getArtObjects(): Listing<ArtObject> {
 
-        //@todo inject or cache
-        return listing
-    }
+    //@todo inject or cache
+    return listing
+  }
 }
 

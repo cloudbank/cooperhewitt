@@ -28,24 +28,24 @@ import com.droidteahouse.cooperhewitt.vo.ArtObject
  * Database schema used by the DbCHObjectRepository
  */
 @Database(
-        entities = arrayOf(ArtObject::class),
-        version = 1,
-        exportSchema = false
+    entities = arrayOf(ArtObject::class),
+    version = 1,
+    exportSchema = false
 )
 @TypeConverters(Converters::class)
 abstract class ArtDb : RoomDatabase() {
-    companion object {
-        fun create(context: Context, useInMemory: Boolean): ArtDb {
-            val databaseBuilder = if (useInMemory) {
-                Room.inMemoryDatabaseBuilder(context, ArtDb::class.java)
-            } else {
-                Room.databaseBuilder(context, ArtDb::class.java, "art.db")
-            }
-            return databaseBuilder
-                    .fallbackToDestructiveMigration()
-                    .build()
-        }
+  companion object {
+    fun create(context: Context, useInMemory: Boolean): ArtDb {
+      val databaseBuilder = if (useInMemory) {
+        Room.inMemoryDatabaseBuilder(context, ArtDb::class.java)
+      } else {
+        Room.databaseBuilder(context, ArtDb::class.java, "art.db")
+      }
+      return databaseBuilder
+          .fallbackToDestructiveMigration()
+          .build()
     }
+  }
 
-    abstract fun artDao(): ArtDao
+  abstract fun artDao(): ArtDao
 }

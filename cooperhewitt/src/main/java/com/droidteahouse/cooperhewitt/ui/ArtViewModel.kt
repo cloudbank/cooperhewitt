@@ -25,26 +25,22 @@ import javax.inject.Inject
  */
 
 class ArtViewModel @Inject constructor(
-        var repository: ArtObjectRepository) : ViewModel() {
+    var repository: ArtObjectRepository) : ViewModel() {
 
-    val repoResult = repository.getArtObjects()
-    //@todo livedata cache
-    val artObjects = repoResult.pagedList
-    val networkState = repoResult.networkState
-    val refreshState = repoResult.refreshState
-
-
-    fun refresh() {
-        repoResult.refresh?.invoke()
-    }
+  val repoResult = repository.getArtObjects()
+  //@todo livedata cache
+  val artObjects = repoResult.pagedList
+  val networkState = repoResult.networkState
+  val refreshState = repoResult.refreshState
 
 
-    fun retry() {
-        repoResult?.retry?.invoke()
-    }
+  fun refresh() {
+    repoResult.refresh.invoke()
+  }
 
-    override fun onCleared() {
-        super.onCleared()
-    }
+
+  fun retry() {
+    repoResult.retry.invoke()
+  }
 
 }

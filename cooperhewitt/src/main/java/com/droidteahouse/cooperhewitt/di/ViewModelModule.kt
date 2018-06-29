@@ -9,13 +9,13 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 
 @Module
-public abstract class ViewModelModule {
-    //the default factory only works with default constructor
-    @Binds
-    @IntoMap
-    @ViewModelKey(ArtViewModel::class)
-    abstract fun bindArtViewModel(artViewModel: ArtViewModel): ViewModel
+abstract class ViewModelModule {
+  //the default factory only works with default constructor
+  @Binds
+  @IntoMap
+  @ViewModelKey(ArtViewModel::class)
+  abstract fun bindArtViewModel(artViewModel: ArtViewModel): ViewModel
 
-    @Binds
-    abstract fun bindViewModelFactory(factory: ArtViewModelFactory): ViewModelProvider.Factory
+  @Binds
+  abstract fun bindViewModelFactory(factory: ArtViewModelFactory): ViewModelProvider.Factory
 }

@@ -42,92 +42,83 @@ import javax.inject.Inject
  */
 class ArtActivity : DaggerAppCompatActivity() {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-    val artViewModel: ArtViewModel by lazy {
-        ViewModelProviders.of(this, viewModelFactory)[ArtViewModel::class.java]
-    }
-    private var mLayoutManager: LinearLayoutManager? = null
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_art)
-        createViews()
-        initSwipeToRefresh()
-        //initSearch()
-    }
+  @Inject
+  lateinit var viewModelFactory: ViewModelProvider.Factory
+  val artViewModel: ArtViewModel by lazy {
+    ViewModelProviders.of(this, viewModelFactory)[ArtViewModel::class.java]
+  }
+  private var mLayoutManager: LinearLayoutManager? = null
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.activity_art)
+    createViews()
+    initSwipeToRefresh()
+    //initSearch()
+  }
 
-    //@todo refactor and opts
-    private fun createViews() {
-        val glide = GlideApp.with(this)
-        val adapter = ArtObjectAdapter(glide) {
-            artViewModel.retry()
-        }
-        //@todo rv opts
-        rvArt.adapter = adapter
-        configRV()
-        artViewModel.artObjects.observe(this, Observer<PagedList<ArtObject>> {
-            val modelProvider = MyPreloadModelProvider(this, it.orEmpty())
-
-            val preloader = RecyclerViewPreloader(
-                    glide, modelProvider, ViewPreloadSizeProvider(), 30)
-            rvArt?.addOnScrollListener(preloader);
-            adapter.submitList(it)
-        })
-        artViewModel.networkState.observe(this, Observer {
-            adapter.setNetworkState(it)
-        })
+  //@todo refactor and opts
+  private fun createViews() {
+    val glide = GlideApp.with(this)
+    val adapter = ArtObjectAdapter(glide) {
+      artViewModel.retry()
     }
+    //@todo rv opts
+    rvArt.adapter = adapter
+    configRV()
+    artViewModel.artObjects.observe(this, Observer<PagedList<ArtObject>> {
+      val modelProvider = MyPreloadModelProvider(this, it.orEmpty())
+      val preloader = RecyclerViewPreloader(
+          glide, modelProvider, ViewPreloadSizeProvider(), 30)
+      rvArt?.addOnScrollListener(preloader)
+      adapter.submitList(it)
+    })
+    artViewModel.networkState.observe(this, Observer {
+      adapter.setNetworkState(it)
+    })
+  }
 
-    private fun configRV() {
-        rvArt?.setHasFixedSize(true)
-        rvArt?.setDrawingCacheEnabled(true)
-        rvArt?.setItemViewCacheSize(9)
-        rvArt?.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH)
-        mLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        rvArt?.setLayoutManager(mLayoutManager)
-        val itemDecor = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
-        itemDecor.setDrawable(ContextCompat.getDrawable(this, R.drawable.brush)!!)
-        val addItemDecoration = rvArt?.addItemDecoration(itemDecor)
-    }
+  private fun configRV() {
+    rvArt?.setHasFixedSize(true)
+    rvArt?.isDrawingCacheEnabled = true
+    rvArt?.setItemViewCacheSize(9)
+    rvArt?.drawingCacheQuality = View.DRAWING_CACHE_QUALITY_HIGH
+    mLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+    rvArt?.layoutManager = mLayoutManager
+    val itemDecor = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
+    itemDecor.setDrawable(ContextCompat.getDrawable(this, R.drawable.brush)!!)
+    val addItemDecoration = rvArt?.addItemDecoration(itemDecor)
+  }
 
-    private fun initSwipeToRefresh() {
-        artViewModel.refreshState.observe(this, Observer {
-            swipe_refresh.isRefreshing = it == NetworkState.LOADING
-        })
-        swipe_refresh.setOnRefreshListener {
-            artViewModel.refresh()
-        }
+  private fun initSwipeToRefresh() {
+    artViewModel.refreshState.observe(this, Observer {
+      swipe_refresh.isRefreshing = it == NetworkState.LOADING
+    })
+    swipe_refresh.setOnRefreshListener {
+      artViewModel.refresh()
     }
+  }
 
 
 //setOnFlingListener
 
 
-    //@todo
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
+  private class MyPreloadModelProvider(val context: Context, val objects: List<ArtObject>) : ListPreloaderHasher.PreloadModelProvider<ArtObject> {
+    @Override
+    @NonNull
+    override fun getPreloadItems(position: Int): List<ArtObject> {
+      if (objects.isEmpty() || position >= objects.size) {
+        return emptyList()
+      } else {
+        return Collections.singletonList(objects.get(position))
+      }
     }
 
-    private class MyPreloadModelProvider(val context: Context, val objects: List<ArtObject>) : ListPreloaderHasher.PreloadModelProvider<ArtObject> {
-        @Override
-        @NonNull
-        public override fun getPreloadItems(position: Int): List<ArtObject> {
-
-            if (objects.isEmpty() || position >= objects.size) {
-                return emptyList()
-            } else {
-
-                return Collections.singletonList(objects.get(position))
-            }
-        }
-
-        @Override
-        @Nullable
-        public override fun getPreloadRequestBuilder(art: ArtObject): GlideRequest<Drawable> {
-
-            return GlideApp.with(context).load(art?.imageUrl).centerCrop()
-        }
+    @Override
+    @Nullable
+    override fun getPreloadRequestBuilder(art: ArtObject): GlideRequest<Drawable> {
+      return GlideApp.with(context).load(art.imageUrl).centerCrop()
     }
+  }
 
 
 }

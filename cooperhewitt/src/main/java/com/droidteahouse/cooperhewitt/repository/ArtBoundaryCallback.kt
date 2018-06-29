@@ -39,81 +39,71 @@ import javax.inject.Singleton
  */
 @Singleton
 class ArtBoundaryCallback @Inject constructor(
-        var ioExecutor: Executor,
-        var webservice: ArtAPI
+    var ioExecutor: Executor,
+    var webservice: ArtAPI
 ) : PagedList.BoundaryCallback<ArtObject>() {
-    lateinit var handleResponse: (ArtObjects?) -> Unit
-    val helper = PagingRequestHelper(ioExecutor)
-    val networkState = helper.createStatusLiveData()
+  lateinit var handleResponse: (ArtObjects?) -> Unit
+  val helper = PagingRequestHelper(ioExecutor)
+  val networkState = helper.createStatusLiveData()
 
-    /**
-     * Database returned 0 items. We should query the backend for more items.
-     */
-    @MainThread
-    override fun onZeroItemsLoaded() {
-        helper.runIfNotRunning(PagingRequestHelper.RequestType.INITIAL) {
-            webservice.japaneseDesign(
-                    page = "1")
-                    //per_page = networkPageSize)
-                    .enqueue(createWebserviceCallback(it))
-        }
+  /**
+   * Database returned 0 items. We should query the backend for more items.
+   */
+  @MainThread
+  override fun onZeroItemsLoaded() {
+    helper.runIfNotRunning(PagingRequestHelper.RequestType.INITIAL) {
+      webservice.japaneseDesign(
+          page = "1")
+          //per_page = networkPageSize)
+          .enqueue(createWebserviceCallback(it))
     }
+  }
 
-    /**
-     * User reached to the end of the list.
-     */
-    @MainThread
-    override fun onItemAtEndLoaded(itemAtEnd: ArtObject) {
-        helper.runIfNotRunning(PagingRequestHelper.RequestType.AFTER) {
-            webservice.japaneseDesign(
-                    page = (itemAtEnd.page + 1).toString())
-                    //per_page = networkPageSize)
-                    .enqueue(createWebserviceCallback(it))
-        }
+  /**
+   * User reached to the end of the list.
+   */
+  @MainThread
+  override fun onItemAtEndLoaded(itemAtEnd: ArtObject) {
+    helper.runIfNotRunning(PagingRequestHelper.RequestType.AFTER) {
+      webservice.japaneseDesign(
+          page = (itemAtEnd.page + 1).toString())
+          //per_page = networkPageSize)
+          .enqueue(createWebserviceCallback(it))
     }
+  }
 
-    /**
-     * every time it gets new items, boundary callback simply inserts them into the database and
-     * paging library takes care of refreshing the list if necessary.
-     */
-    private fun insertItemsIntoDb(
-            response: Response<ArtObjects>,
-            it: PagingRequestHelper.Request.Callback) {
-        ioExecutor.execute {
-            handleResponse(response.body())
-            it.recordSuccess()
-        }
+  /**
+   * every time it gets new items, boundary callback simply inserts them into the database and
+   * paging library takes care of refreshing the list if necessary.
+   */
+  private fun insertItemsIntoDb(
+      response: Response<ArtObjects>,
+      it: PagingRequestHelper.Request.Callback) {
+    ioExecutor.execute {
+      handleResponse(response.body())
+      it.recordSuccess()
     }
+  }
 
-    override fun onItemAtFrontLoaded(itemAtFront: ArtObject) {
-        // ignored, since we only ever append to what's in the DB
+  override fun onItemAtFrontLoaded(itemAtFront: ArtObject) {
+    // ignored, since we only ever append to what's in the DB
+  }
+
+  private fun createWebserviceCallback(it: PagingRequestHelper.Request.Callback)
+      : Callback<ArtObjects> {
+    return object : Callback<ArtObjects> {
+      override fun onFailure(
+          call: Call<ArtObjects>,
+          t: Throwable) {
+        it.recordFailure(t)
+      }
+
+      override fun onResponse(
+          call: Call<ArtObjects>,
+          response: Response<ArtObjects>) {
+        insertItemsIntoDb(response, it)
+      }
     }
+  }
 
-    private fun createWebserviceCallback(it: PagingRequestHelper.Request.Callback)
-            : Callback<ArtObjects> {
-        return object : Callback<ArtObjects> {
-            override fun onFailure(
-                    call: Call<ArtObjects>,
-                    t: Throwable) {
-                it.recordFailure(t)
-            }
-
-            override fun onResponse(
-                    call: Call<ArtObjects>,
-                    response: Response<ArtObjects>) {
-                //filter(response)
-                insertItemsIntoDb(response, it)
-            }
-        }
-    }
-
-    //@todo
-    private fun filter(response: Response<ArtObjects>): Response<ArtObjects> {
-        var objs = response.body()
-        response.body()?.objects?.filter {
-            !it.title.equals("Fragment(Japan)")
-        }
-
-        return response
-    }
 }

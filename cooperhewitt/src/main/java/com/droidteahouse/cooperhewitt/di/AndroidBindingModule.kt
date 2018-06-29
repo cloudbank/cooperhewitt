@@ -11,6 +11,6 @@ import dagger.android.ContributesAndroidInjector
 @Module
 abstract class AndroidBindingModule {
 
-    @ContributesAndroidInjector
-    internal abstract fun contributesArtActivity(): ArtActivity
+  @ContributesAndroidInjector
+  internal abstract fun contributesArtActivity(): ArtActivity
 }

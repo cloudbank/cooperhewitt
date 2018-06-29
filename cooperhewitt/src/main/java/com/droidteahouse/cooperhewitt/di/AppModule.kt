@@ -34,56 +34,56 @@ import javax.inject.Singleton
 
 @Module(includes = arrayOf(ViewModelModule::class))
 class AppModule {
-    @Provides
-    @Singleton
-    internal fun provideContext(application: Application): Context {
-        return application
-    }
+  @Provides
+  @Singleton
+  internal fun provideContext(application: Application): Context {
+    return application
+  }
 
-    @Provides
-    @Singleton
-    internal fun provideSharedPreferences(context: Context): SharedPreferences {
-        return context.getSharedPreferences("ArtPrefs", Context.MODE_PRIVATE)
-    }
-
-
-    @Reusable
-    @Provides
-    internal fun provideArtService(): ArtAPI {
-        val okHttpClient = OkHttpClient.Builder()
-                // .addInterceptor(logger)
-                // .addNetworkInterceptor(HeaderInterceptor())
-                //  .authenticator(TokenAuthenticator())
-                .build()
-        return Retrofit.Builder()
-                .baseUrl("https://api.collection.cooperhewitt.org/rest/")
-                .client(okHttpClient)
-                // .addConverterFactory(GsonConverterFactory.create(GsonBuilder().excludeFieldsWithoutExposeAnnotation().create()))
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-                .create(ArtAPI::class.java)
-    }
-
-    //this is an expensive operation so, we would want a singleton object.
-    @Singleton
-    @Provides
-    internal fun provideDb(application: Application): ArtDb {
-        return Room.databaseBuilder(application, ArtDb::class.java, "artsy.db").build()
-    }
+  @Provides
+  @Singleton
+  internal fun provideSharedPreferences(context: Context): SharedPreferences {
+    return context.getSharedPreferences("ArtPrefs", Context.MODE_PRIVATE)
+  }
 
 
-    @Provides
-    @Reusable
-    internal fun provideIOExecutor(): Executor {
-        return Executors.newSingleThreadExecutor()
-    }
+  @Reusable
+  @Provides
+  internal fun provideArtService(): ArtAPI {
+    val okHttpClient = OkHttpClient.Builder()
+        // .addInterceptor(logger)
+        // .addNetworkInterceptor(HeaderInterceptor())
+        //  .authenticator(TokenAuthenticator())
+        .build()
+    return Retrofit.Builder()
+        .baseUrl("https://api.collection.cooperhewitt.org/rest/")
+        .client(okHttpClient)
+        // .addConverterFactory(GsonConverterFactory.create(GsonBuilder().excludeFieldsWithoutExposeAnnotation().create()))
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+        .create(ArtAPI::class.java)
+  }
+
+  //this is an expensive operation so, we would want a singleton object.
+  @Singleton
+  @Provides
+  internal fun provideDb(application: Application): ArtDb {
+    return Room.databaseBuilder(application, ArtDb::class.java, "artsy.db").build()
+  }
 
 
-    @Provides
-    @Singleton
-    internal fun provideDao(db: ArtDb): ArtDao {
-        return db.artDao()
-    }
+  @Provides
+  @Reusable
+  internal fun provideIOExecutor(): Executor {
+    return Executors.newSingleThreadExecutor()
+  }
+
+
+  @Provides
+  @Singleton
+  internal fun provideDao(db: ArtDb): ArtDao {
+    return db.artDao()
+  }
 
 
 }
