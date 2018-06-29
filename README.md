@@ -7,16 +7,17 @@ CH API for Architecture optimizations in image downloads and paging
 >>>>
 
 <img src="https://i.imgur.com/rh7MkgQ.png" height="300"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+>>>>Target 27
+>>>>SDK 14+, Oreo compatible, for phone and tablet
 
->>>>SDK 19+, Oreo compatible, for phone and tablet
-
-* *Dagger2 for abstraction
+* *Dagger2 for DI abstraction
 * *Roboelectric, Espresso, and Mockito tests
-* *Paging boundary callabck for Room/Retrofit decision making
-* *VM, Repository, DAO patterns with LiveData for lifecycle managment
-* *Glide, Glide RecyclerView integration library Preloader + RecyclerView optimizations
+* *Paging boundary callback for Room/Retrofit decision making
+* *MVVM, Repository, DAO patterns with LiveData for lifecycle managment
+* *Glide RecyclerView integration library for image preload
 * *Kotlin extensions
-* *
+* *Image duplicates removal hashing
+
 
 
 >>>>VIEW   
