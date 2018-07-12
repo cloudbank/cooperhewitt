@@ -1,6 +1,11 @@
 # cooperhewitt
 CH API for Architecture optimizations in image downloads and paging
-
+ 
+>>>> 
+Unfortunately, while working on this, the API fell over with a 999 error., but gives no rate limits. I will republish a v.2 that wraps the exception and present another artwork API for this portfolio.  I have successfully created a preload integrated dhash for Android that detects exact or within epsilon images in time to update the display. The next two projects will be added ASAP and this will be marked unreliable.  Sorry!
+ 
+ 
+ 
 ## Japanese Design @ Cooper Hewitt v1    (POC demo portfolio app)
 >>>>
 
